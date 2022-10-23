@@ -1,42 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import getPlanets from '../services/starWarsApi';
+import React, { useState, useEffect, useContext } from 'react';
+import { planetsContext } from '../context/myContext';
+import Loading from './Loading';
 
 function Table() {
-  const [planetStarWars, setPlanets] = useState('0');
+  const getData = useContext(planetsContext);
+
+  const [trHtml, setTrHtml] = useState('');
+  const [loading, setLoaded] = useState(false);
+
+  const setTrItems = (values) => {
+    setTrHtml(values);
+    setLoaded(true);
+  };
 
   useEffect(() => {
-    const fetchPlanets = async () => {
-      const OBJECT_PLANETS = await getPlanets();
-      const { results } = OBJECT_PLANETS;
-      setPlanets(results);
-    };
-    fetchPlanets();
-  }, []);
+    if (getData) {
+      const values = Object.values(getData);
+      setTrItems(values);
+    }
+  }, [getData]);
 
-  return (
-    <div>
-      <Header />
-      <h2>Tabela</h2>
-      <table>
+  return !loading ? <Loading /> : (
+    <table>
+      <thead>
         <tr>
-          <ht>Name</ht>
-          <ht>Rotation Period</ht>
-          <ht>Orbital Period</ht>
-          <ht>Diameter</ht>
+          <th>Name</th>
+          <th>Rotation period</th>
+          <th>Orbital period</th>
+          <th>Diameter</th>
+          <th>Climate</th>
+          <th>Gravity</th>
+          <th>Terrain</th>
+          <th>Surface water</th>
+          <th>Population</th>
+          <th>Films</th>
+          <th>Created</th>
+          <th>Edited</th>
+          <th>Url</th>
         </tr>
-        {
-          planetStarWars.map((i) => (
-            <tr key={ i.name }>
-              <td>{i.name}</td>
-              <td>{i.rotation_period}</td>
-              <td>{i.orbital_period}</td>
-              <td>{i.diameter}</td>
-            </tr>
-          ))
-        }
-      </table>
-    </div>
+      </thead>
+      <tbody>
+        {trHtml.map((i) => (
+          <tr key={ i.name }>
+            <td>{i.name}</td>
+            <td>{i.rotation_period}</td>
+            <td>{i.orbital_period}</td>
+            <td>{i.diameter}</td>
+            <td>{i.climate}</td>
+            <td>{i.gravity}</td>
+            <td>{i.terrain}</td>
+            <td>{i.surface_water}</td>
+            <td>{i.population}</td>
+            <td>{i.films}</td>
+            <td>{i.created}</td>
+            <td>{i.edited}</td>
+            <td>{i.url}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
