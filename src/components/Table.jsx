@@ -14,6 +14,8 @@ function Table() {
   const [valueNumber, setValueNumber] = useState(0);
   const [filters, setFilters] = useState([]);
   const [filteredDataAPI, setFilteredDataAPI] = useState([]);
+  const [options, setOptions] = useState(['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,6 +65,12 @@ function Table() {
     setFilteredDataAPI(data);
   }, [getData, filters]);
 
+  const filterUpdate = () => {
+    setFilters((prev) => [...prev, { column, operator, valueNumber }]);
+    setOptions((prev) => prev.filter((i) => i !== column));
+    setColumnFilter(options[0]);
+  };
+
   return !loading ? <Loading /> : (
     <div>
       <input
@@ -78,11 +86,10 @@ function Table() {
           ({ target }) => setColumnFilter((target.value))
         }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {
+          options.map((i) => (
+            <option key={ i } value={ i }>{i}</option>))
+        }
       </select>
       <select
         data-testid="comparison-filter"
@@ -102,16 +109,25 @@ function Table() {
       <button
         data-testid="button-filter"
         type="button"
-        onClick={ () => setFilters(
-          (prev) => [...prev, { column, operator, valueNumber }],
-        ) }
+        onClick={ filterUpdate }
       >
         Filtrar
+      </button>
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ () => setFilters([]) }
+      >
+        Remover todas as filtragens
       </button>
       <div>
         {
           filters.map((filterItem, index) => (
-            <div key={ index } style={ { display: 'flex', gap: '30px' } }>
+            <div
+              data-testid="filter"
+              key={ index }
+              style={ { display: 'flex', gap: '30px' } }
+            >
               <p>{filterItem.column}</p>
               <p>{filterItem.operator}</p>
               <p>{filterItem.valueNumber}</p>
@@ -128,7 +144,7 @@ function Table() {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th data-testid="planet-name">Name</th>
             <th>Rotation period</th>
             <th>Orbital period</th>
             <th>Diameter</th>
