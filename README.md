@@ -10,11 +10,11 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 -->
 
  Nesse projeto eu fui responsável em desenvolver os arquivos presentes nas pastas:
-1. src 
- - components
- - context
- - services
- - tests
 
+1. src
+   - components
+   - context
+   - services
+   - tests
 
 
