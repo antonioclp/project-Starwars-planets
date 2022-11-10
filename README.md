@@ -9,8 +9,6 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
 
-### Clonando o projeto em sua máquina:
-```
-git clone 
-```
+ Nesse projeto eu fui responsável em desenvolver os arquivos presentes nas pastas:
+
 
