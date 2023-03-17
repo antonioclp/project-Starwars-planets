@@ -9,15 +9,19 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
 
- ##### Nesse projeto eu fui responsável em desenvolver os arquivos presentes nas pastas:
+ ##### Nesse projeto eu fui responsável em desenvolver os seguintes arquivos:
 
 <details><summary>src</summary>
 <p>
 
-`components`
-`context`
-`services`
-`tests`
+`/components`
 
+`/context`
+
+`/services`
+
+`/tests`
+
+`App.js`
 </p>
 </details>
